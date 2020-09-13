@@ -1,6 +1,7 @@
 # Empiric
 Empriric is a php framework to develop api as fast as possible.
-#Dependencies
+# Dependencies
+<br>
 PHP >= 7.4
 <br>
 Composer >= 1.10.10
@@ -9,18 +10,18 @@ MariaDB >= 10.4
 <br>
 Note: The framework might work or not in lower version of composer and MariaDB
 
-#Prupose
+# Prupose
 The main prupose of this framework is to create a friendly eviroment to make api development as fast as possible without spending to much time of the project in generic api calls.
 
-#Methodology
+# Methodology
 The mthodology that use this framework is REST API based but not REST API, it tries to combine the benefits that GraphQL give such as one unic endpoint instead the url descrtiped model used by REST API.
 
-#Getting Started
+# Getting Started
 This mini guide is going to help you to get started using Empiric framework at the end of this point you will be able to consume resources via HTTP/HTTPS
 <br>
 1) Clone git repo in your computer using the following command
+"git clone https://github.com/InnovusLATAM/Empiric.git"
 <br>
-`git clone https://github.com/InnovusLATAM/Empiric.git`
 <br>
 2) Once you have the project in local the next step is to change some preferences in the `config.php` file located in the root of the project, this file have configurations like:
 <ul>
@@ -40,6 +41,8 @@ Windows: C:\xampp\htdocs\empiric-framework\webapp.log
 <br>
 Linux: /var/www/html/webapp.log
 <br>
+<br>
 3) When you have finished editting the `config.php` file you will must to install the dependencies specified in composer.json file, to perform this use the next command `composer install`
+<br>
 <br>
 4) Now open your favorite browser and load the file api.php you must to see a json as an output if an error occur, this could be because the FrameWork can't access to the log file due to permissions
