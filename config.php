@@ -27,7 +27,7 @@ $media_path = [
 ];
 
 $log_settings = [
-    'path' => '/var/www/log/webapp.log'
+    'path' => 'C:\xampp\htdocs\empiric-framework\webapp.log'
 ];
 
 $token_settings = [

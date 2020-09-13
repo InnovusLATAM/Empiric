@@ -9,9 +9,11 @@ class NoDbEndPoint
 {
     private Request $request;
     private Response $response;
+    private string $endpoint;
 
-    public function __construct(Request $request, Response $response, $actions)
+    public function __construct(Request $request, Response $response, array $actions, string $endpoint)
     {
+        $this->endpoint = $endpoint;
         $this->request = $request;
         $this->response = $response;
         $action = $request->getValue('action');
@@ -21,14 +23,19 @@ class NoDbEndPoint
         }
     }
 
-    public function getRequest()
+    public function getRequest(): Request
     {
         return $this->request;
     }
 
-    public function getResponse()
+    public function getResponse(): Response
     {
         return $this->response;
+    }
+
+    public function getEndPoint(): string
+    {
+        return $this->endpoint;
     }
 
 }

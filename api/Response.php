@@ -2,7 +2,8 @@
 
 class Response
 {
-    private $response = array();
+    private array $response = array();
+
     public function __construct()
     {
         header('Content-Type:application/json;utf-8');

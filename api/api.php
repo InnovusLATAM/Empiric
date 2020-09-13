@@ -13,6 +13,10 @@ chdir(__DIR__);
 include_once 'DataTypes.php';
 chdir(__DIR__);
 include_once 'EndPoints.php';
+chdir(__DIR__);
+include_once '../endpoints/api/Utils.php';
+chdir(__DIR__);
+
 global $api_data;
 
 $response = new Response();
@@ -30,13 +34,18 @@ if ($petition != 'POST') {
 $data = file_get_contents('php://input');
 $array = json_decode($data, true) or (new Log(MessageTypes::Grave, 'JSON invalido:' . PHP_EOL . $data))->write() == 1;
 $request = new Request($array);
+
 $request->validateDataTypes(array('endpoint' => 'string', 'action' => 'string'), true);
 $endpoint = $array['endpoint'];
 $action = $array['action'];
 
 switch ($endpoint) {
+    case EndPoints::utils:
+        $utils = new Utils($request, $response);
+        $utils->perform();
+        break;
     default:
-        $message = "El endpoint '$endpoint' no es valido";
+        $message = "The Endpoint '$endpoint' is not valid";
         $response->printError($message, 400);
 }
 $response->printError('No response provided by the server', 500);
