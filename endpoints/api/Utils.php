@@ -19,7 +19,7 @@ class Utils extends NoDbEndPoint implements EndPointActions
 {
     public function __construct(Request $request, Response $response)
     {
-        parent::__construct($request, $response, array('getDate', 'getIp'), strtolower(Utils::class));
+        parent::__construct($request, $response, array('getDate'), strtolower(Utils::class));
     }
 
     public function perform()
@@ -34,10 +34,6 @@ class Utils extends NoDbEndPoint implements EndPointActions
                 $response->addValue(parent::getEndPoint(), array($action => $date));
                 $response->printResponse();
                 break;
-            }
-            case 'getIp':
-            {
-                $ip = (new ServerData())->getDate(true);
             }
             default:
                 $response->printError('The action you want to perform is available, but not implemented', 400);
