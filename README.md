@@ -45,4 +45,4 @@ Linux: /var/www/html/webapp.log
 3) When you have finished editting the `config.php` file you will must to install the dependencies specified in composer.json file, to perform this use the next command `composer install`
 <br>
 <br>
-4) Now open your favorite browser and load the file api.php you must to see a json as an output if an error occur, this could be because the FrameWork can't access to the log file due to permissions
+4) Now open your favorite browser and load the file .../api/api.php you must to see a json as an output if an error occur, this could be because the FrameWork can't access to the log file due to permissions
