@@ -65,5 +65,5 @@ The response should look like
 }
 <br>
 if an error occurs the value status of the response json will be false and another value called message will appear trying to describe the error.
-
+<br>
 More coming soon...
