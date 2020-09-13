@@ -46,3 +46,24 @@ Linux: /var/www/html/webapp.log
 <br>
 <br>
 4) Now open your favorite browser and load the file .../api/api.php you must to see a json as an output if an error occur, this could be because the FrameWork can't access to the log file due to permissions
+<br>
+<br>
+5) If everthing seems to be right at this point you should be able to consume the "utils" resouce from the server, you can use a rest client to test it.
+<br>
+The target file you must to use is .../api/api.php, for example http://localhost/empiric-framework/api/api.php send via POST the next JSON
+<br>
+{
+	"endpoint":"utils",
+	"action":"getDate"
+}
+<br>
+The response should look like
+{
+  "status": true,
+  "utils": {
+    "getDate": "13/09/2020 13:56:05"
+  }
+}
+<br>
+if an error occurs the value status of the response json will be false and another value called message will appear trying to describe the error.
+
