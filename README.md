@@ -15,6 +15,9 @@ The main prupose of this framework is to create a friendly eviroment to make api
 # Methodology
 The mthodology that use this framework is REST API based but not REST API, it tries to combine the benefits that GraphQL give such as one unic endpoint instead the url descrtiped model used by REST API.
 
+# Discord Server
+https://discord.gg/RtKMPPN
+
 # Getting Started
 This mini guide is going to help you to get started using Empiric framework at the end of this point you will be able to consume resources via HTTP/HTTPS
 <br>
