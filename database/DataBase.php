@@ -111,15 +111,7 @@ abstract class DataBase
         $query = "SELECT $str_fields FROM $this->table $condition";
         $result = $this->con->query($query, MYSQLI_USE_RESULT);
         if ($result) {
-            $data = array();
-            while ($row = $result->fetch_array()) {
-                $aux_array = array();
-                foreach ($field_array as $value) {
-                    $aux_array[$value] = $row[$value];
-                }
-                array_push($data, $aux_array);
-            }
-            return $data;
+            return mysqli_fetch_all($result, MYSQLI_ASSOC);
         }
         (new Log(MessageTypes::Grave, $this->con->error))->write();
     }
@@ -134,16 +126,6 @@ abstract class DataBase
             if (is_callable($onError)) {
                 $onError();
             }
-            $this->response->printError((new MysqlErrorMessage())->getMessage($this->con));
-        }
-    }
-
-    protected function setBitacoraRecords($field_array, $data_array)
-    {
-        $str_fields = $this->getFields($field_array);
-        $str_data = $this->getData($data_array);
-        $query = "INSERT INTO bitacora ($str_fields) VALUES ('$str_data')";
-        if (!$this->con->query($query, MYSQLI_USE_RESULT)) {
             $this->response->printError((new MysqlErrorMessage())->getMessage($this->con));
         }
     }
@@ -214,19 +196,7 @@ abstract class DataBase
         }
         (new Log(MessageTypes::Grave, $this->con->error))->write();
     }
-
-    protected function setDBcode($field_array, $data_array)
-    {
-        $str_fields = $this->getFields($field_array);
-        $str_data = $this->getData($data_array);
-        $query = "INSERT INTO $this->table ($str_fields) VALUES ('$str_data')";
-        $this->request->setSQLQuery($query);
-        if (!$this->con->query($query, MYSQLI_USE_RESULT)) {
-            return $this->con->errno;
-        } else {
-            return true;
-        }
-    }
+    
 
     protected function getTable(): string
     {

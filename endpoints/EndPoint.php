@@ -100,7 +100,7 @@ class EndPoint extends DataBase implements Crud
         return $full_array;
     }
 
-    public function crear($onError, $onSuccess)
+    public function addNewRecord($onError, $onSuccess)
     {
         $full_array = $this->getFullArray();
         if (is_callable($onSuccess)) {
@@ -112,13 +112,9 @@ class EndPoint extends DataBase implements Crud
             parent::getResponse()->printError('No se han detectado datos de entrada válidos para ser actualizados.');
         }
         parent::setRecords($fields, $data, $onError);
-        $cookie = parent::getRequest()->getCookies();
-        if (isset($cookie['token'])) {
-            $this->addBitacora($this->getInfoArray());
-        }
     }
 
-    public function obtener_todos($sub_fields = null)
+    public function getAllRecords($sub_fields = null)
     {
         $fields = ($sub_fields === null) ? $this->db_fields : $sub_fields;
         $recieve_data = parent::getRecords($fields);
@@ -129,7 +125,7 @@ class EndPoint extends DataBase implements Crud
         }
     }
 
-    public function obtener_by_field($campo, $data, $sub_field = null, $endpointname)
+    public function getRecordsByField($campo, $data, $sub_field = null, $endpointname)
     {
         $fields = ($sub_field === null) ? $this->db_fields : $sub_field;
         $recieve_data = parent::getRecords($fields, "WHERE $campo=$data");
@@ -142,16 +138,12 @@ class EndPoint extends DataBase implements Crud
         }
     }
 
-    public function eliminar_by_field($field_condition, $identificador)
+    public function deleteRecordsByField($field_condition, $identificador)
     {
         parent::deleteRecords($field_condition, $identificador);
-        $cookie = parent::getRequest()->getCookies();
-        if (isset($cookie['token'])) {
-            $this->addBitacora($this->getInfoArray());
-        }
     }
 
-    public function actualizar_by_field($field_condition, $identificador)
+    public function updateRecordsByField($field_condition, $identificador)
     {
         $full_array = $this->getFullArray();
         $fields = array_keys($full_array);
@@ -160,42 +152,5 @@ class EndPoint extends DataBase implements Crud
             parent::getResponse()->printError('No se han detectado datos de entrada válidos para ser actualizados.', 400);
         }
         parent::updateRecords($fields, $data, $field_condition, $identificador);
-        $cookie = parent::getRequest()->getCookies();
-        if (isset($cookie['token'])) {
-            $this->addBitacora($this->getInfoArray());
-        }
     }
-
-    public function addBitacora($info_array)
-    {
-        $fields = array_keys($info_array);
-        $data = array_values($info_array);
-        if (count($data) === 0) {
-            parent::getResponse()->printError('No se han detectado datos de entrada válidos para ser actualizados.');
-        }
-        parent::setBitacoraRecords($fields, $data);
-    }
-
-    public function addCodeDB($info_array)
-    {
-        $fields = array_keys($info_array);
-        $data = array_values($info_array);
-        if (count($data) === 0) {
-            parent::getResponse()->printError('No se han detectado datos de entrada válidos para ser actualizados.');
-        }
-        return parent::setDBcode($fields, $data);
-    }
-
-    public function getInfoArray()
-    {
-        return $info_array = array(
-            "ip" => $this->getIPAddress(),
-            "event" => parent::getRequest()->getValue('action') . ":" . strtolower(parent::getRequest()->getAsArray()['endpoint']),
-            "sql_query" => parent::getRequest()->getSQLQuery(),
-            "usuario" => parent::getRequest()->getUsername(),
-            "token" => parent::getRequest()->getToken(),
-            "secret_key" => parent::getRequest()->getSecretKey()
-        );
-    }
-
 }
